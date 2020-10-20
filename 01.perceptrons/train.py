@@ -1,5 +1,6 @@
 import numpy as np
 from SPLA import SPLA
+from PLA import PLA
 
 # loading data
 text_data = np.empty([10, 35, 5], dtype='float32')
@@ -21,26 +22,29 @@ for i in range(10):
 
 # perceptrons init
 SPLAs = []
-perceptrons_with_ratchet = []
+PLAs = []
 for i in range(10):
     SPLAs.append(SPLA(i, 5 * 7, E, T[i]))
+    PLAs.append(PLA(i, 5 * 7, E, T[i]))
 
 # learning
 for i in range(10): # for each digit
-    # for j in range(100): # X+ teaching examples
-    #     tmp_i = np.random.randint(0, E.shape[0])
-    #     tmp_j = np.random.randint(0, E.shape[1])
-    #     SPLAs[i].train(E[tmp_i][tmp_j], T[i][tmp_i])
-    SPLAs[i].train(100)
+    SPLAs[i].train(10000)
+    PLAs[i].train(10000)
 
 # checking on teaching examples
 SPLAs_predict = np.zeros(10)
+PLAs_predict = np.zeros(10)
 for digit in range(10):
     for i in range(10):
         for j in range(5):
             if(SPLAs[digit].predict(E[i][j]) == T[i][j]):
                 SPLAs_predict[digit] += 1
+            if(PLAs[digit].predict(E[i][j]) == T[i][j]):
+                PLAs_predict[digit] += 1
 
 print(SPLAs_predict)
+print(PLAs_predict)
 print()
 print(f'{round(np.sum(SPLAs_predict) / 500 * 100, 1)} % poprawnych odpowiedzi na danych uczacych dla perceptronow bez ulepszen.\n')
+print(f'{round(np.sum(PLAs_predict) / 500 * 100, 1)} % poprawnych odpowiedzi na danych uczacych dla perceptronow z kieszonka.\n')
