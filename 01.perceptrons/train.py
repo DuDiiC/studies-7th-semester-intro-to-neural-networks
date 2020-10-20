@@ -23,14 +23,15 @@ for i in range(10):
 SPLAs = []
 perceptrons_with_ratchet = []
 for i in range(10):
-    SPLAs.append(SPLA(i, 5 * 7))
+    SPLAs.append(SPLA(i, 5 * 7, E, T[i]))
 
 # learning
 for i in range(10): # for each digit
-    for j in range(100): # X+ teaching examples
-        tmp_i = np.random.randint(0, E.shape[0])
-        tmp_j = np.random.randint(0, E.shape[1])
-        SPLAs[i].train(E[tmp_i][tmp_j], T[i][tmp_i])
+    # for j in range(100): # X+ teaching examples
+    #     tmp_i = np.random.randint(0, E.shape[0])
+    #     tmp_j = np.random.randint(0, E.shape[1])
+    #     SPLAs[i].train(E[tmp_i][tmp_j], T[i][tmp_i])
+    SPLAs[i].train(100)
 
 # checking on teaching examples
 SPLAs_predict = np.zeros(10)
