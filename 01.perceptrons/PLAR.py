@@ -34,7 +34,7 @@ class PLAR:
                     self.best_predict_number = current_predict_number
                     self.best_lifetime = self.current_lifetime
                     if (self.best_weights != self.weights).all():
-                        self.best_weights = self.weights
+                        self.best_weights = np.copy(self.weights)
 
     def forward(self, data):
         """Calculates the main part of the algorithm"""

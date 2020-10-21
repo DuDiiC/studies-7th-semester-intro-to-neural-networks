@@ -31,7 +31,7 @@ class PLA:
                 if(self.current_lifetime > self.best_lifetime):
                     self.best_lifetime = self.current_lifetime
                     if (self.best_weights != self.weights).all():
-                        self.best_weights = self.weights
+                        self.best_weights = np.copy(self.weights)
 
     def forward(self, data):
         """Calculates the main part of the algorithm"""
